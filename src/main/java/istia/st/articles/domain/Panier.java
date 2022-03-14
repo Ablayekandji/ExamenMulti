@@ -1,21 +1,49 @@
 package istia.st.articles.domain;
 // Imports
+import istia.st.articles.dao.Article;
+
 import java.util.ArrayList;
 public class Panier {
     // Champs
-    private ArrayList achats;
+    private ArrayList achats= new ArrayList();;
     // Constructeurs
     public Panier() { }
 // Méthodes
     public ArrayList getAchats() {
-        return null;
+         return achats;
     }
-    public void ajouter(Achat unAchat) { }
-    public void enlever(int idAchat) { }
+    public void ajouter(Achat unAchat) {
+        // on ajoute l'achat
+        // on cherche si l'article a déjà été acheté
+        int idArticle = unAchat.getArticle().getId(); Article article = null;
+                Achat achat = null; boolean trouve = false;
+                for (int i = 0; !trouve && i < achats.size(); i++) { achat = (Achat) achats.get(i);
+                    article = (Article) achat.getArticle(); if (article.getId() == idArticle) {
+                        achat.setQte(achat.getQte() + unAchat.getQte()); trouve=true;
+                    }
+                }
+        // article trouvé ?
+        if (!trouve) {
+        // pas encore acheté - on ajoute l'achat
+            achats.add(unAchat);
+    }
+
+}
+    public void enlever(int idArticle) {
+        for (int i = 0; i < achats.size(); i++) {
+            if (((Achat) achats.get(i)).getArticle().getId() == idArticle) { achats.remove(i);
+            }
+        }
+
+    }
     public double getTotal() {
-        return 0;
+        double total = 0;
+        for (int i = 0; i < achats.size(); i++) { total += ((Achat) achats.get(i)).getTotal();
+        }
+        return total;
+
     }
     public String toString() {
-        return null;
+        return this.achats.toString();
     }
 }

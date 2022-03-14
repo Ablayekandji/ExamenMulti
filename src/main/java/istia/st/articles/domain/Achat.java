@@ -6,20 +6,28 @@ public class Achat {
     // Champs
     private Article article; private int qte;
     // Constructeurs
-    public Achat(Article article, int qte) { }
+    public Achat(Article article, int qte) {
+        this.article = article;
+        this.qte = qte;
+
+    }
     // Méthodes
     public double getTotal() {
-        return 0;
+        return article.getPrix() * qte;
     }
     public Article getArticle() {
-        return null;
+        return article;
     }
-    public void setArticle(Article article) { }
+    public void setArticle(Article article) {
+        this.article = article;
+    }
     public int getQte() {
-        return 0;
+        return qte;
     }
-    public void setQte() { }
+    public void setQte(int qte) {
+        this.qte = qte;
+    }
     public String toString() {
-        return null;
+        return "[" + this.article.toString() + "," + this.qte + "]";
     }
 }
